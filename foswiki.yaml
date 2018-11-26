@@ -30,13 +30,14 @@ items:
         spec:
           containers:
           - name: foswiki
-            image: cjlove/centos-foswiki
-            imagePullPolicy: Never
+            #            image: cjlove/centos-foswiki
+            image: andreysmelter/ubuntu-foswiki
+            imagePullPolicy: Always
             ports:
             - containerPort: 80
             volumeMounts:
               - name: wiki
-                mountPath: /var/lib/foswiki/data
+                mountPath: /var/www/foswiki/data
 
           terminationGracePeriodSeconds: 30
           volumes:

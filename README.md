@@ -2,9 +2,8 @@
 Manifests for deploying things on Kubernetes.  I run a single-node K8S cluster on my home Linux box (Fedora 28 as of this writing), configured via `kubeadm`.  This cluster is only accessible privately, so certain things aren't hardened as much as they could be.
 
 ## Foswiki
-I have a home-built foswiki docker image (based on Centos and a foswiki rpm).  The actual wiki data is passed in as a volume from the host.  The foswiki service uses NodePort 30000 and everything is deployed in the `foswiki` namespace.
+The actual wiki data is passed in as a volume from the host.  The foswiki service uses NodePort 30000 and everything is deployed in the `foswiki` namespace.  This now uses the following Foswiki docker image: https://hub.docker.com/r/andreysmelter/ubuntu-foswiki.
 
-TODO: Refresh the foswiki docker image or use one of the publicly-available images
 
 ```
 # kubectl create -f foswiki.yaml
