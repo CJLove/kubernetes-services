@@ -31,19 +31,33 @@ items:
           containers:
           - name: foswiki
             #            image: cjlove/centos-foswiki
-            image: andreysmelter/ubuntu-foswiki
-            imagePullPolicy: Always
+            # image: andreysmelter/ubuntu-foswiki
+            image: timlegge/docker-foswiki
+            imagePullPolicy: IfNotPresent
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - ln
+                    - -fs
+                    - /var/www/foswiki/config/LocalSite.cfg
+                    - /var/www/foswiki/lib/LocalSite.cfg
             ports:
             - containerPort: 80
             volumeMounts:
-              - name: wiki
+              - name: wiki-data
                 mountPath: /var/www/foswiki/data
+              - name: wiki-cfg
+                mountPath: /var/www/foswiki/config
 
           terminationGracePeriodSeconds: 30
           volumes:
-          - name: wiki
+          - name: wiki-data
             hostPath:
                 path: /home/wiki/data
+          - name: wiki-cfg
+            hostPath:
+                path: /home/wiki/config
   - apiVersion: v1
     kind: Service
     metadata:
